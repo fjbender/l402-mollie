@@ -80,18 +80,75 @@ Authorization: Bearer your_token
     curl -H "Authorization: Bearer your_token" https://your-server.com/api/protected
     ```
     You'll get a 402 response with payment options.
+   ```json
+   {
+     "version": "0.2.2",
+     "payment_request_url": "https://your-server.com/payment/request",
+     "payment_context_token": null,
+     "offers": [
+       {
+         "id": "offer_1_credit",
+         "title": "1 Credit Package",
+         "description": "Purchase 1 credit for API access",
+         "amount": 1,
+         "currency": "EUR",
+         "payment_methods": [
+           "mollie"
+         ],
+         "credits": 1
+       },
+       {
+         "id": "offer_5_credits",
+         "title": "5 Credit Package",
+         "description": "Purchase 5 credits for API access",
+         "amount": 4.5,
+         "currency": "EUR",
+         "payment_methods": [
+           "mollie"
+         ],
+         "credits": 5
+       },
+       {
+         "id": "offer_10_credits",
+         "title": "10 Credit Package",
+         "description": "Purchase 10 credits for API access",
+         "amount": 8,
+         "currency": "EUR",
+         "payment_methods": [
+           "mollie"
+         ],
+         "credits": 10
+       }
+     ],
+     "terms_url": "https://your-server.com/terms",
+     "metadata": {
+       "resource_id": "api_access",
+       "client_note": "Payment required for API access"
+     }
+   }
+   ```
 
-3. Make a payment request:
+4. Make a payment request:
     ```
     curl -X POST -H "Authorization: Bearer your_token" \
       -H "Content-Type: application/json" \
       -d '{"offer_id": "offer_1_credit", "payment_method": "mollie"}' \
       https://your-server.com/payment/request
     ```
+   You'll see something like
+   ```json
+   {
+     "version": "0.2.2",
+     "payment_request": {
+       "checkout_url": "https://www.mollie.com/checkout/select-method/5Pou5ogmjr?checkout_version=2.0"
+     },
+     "expires_at": "2025-05-07T10:13:56.373+00:00"
+   }
+   ```
 
-4. Complete payment via the provided Mollie checkout URL
+5. Complete payment via the provided Mollie checkout URL
 
-5. After payment, the API becomes accessible:
+6. After payment, the API becomes accessible:
     ```
     curl -H "Authorization: Bearer your_token" https://your-server.com/api/protected
     ```
