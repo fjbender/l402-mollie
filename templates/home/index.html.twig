@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}L402 Mollie Demo{% endblock %}
+
+{% block body %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h1 class="mb-0">L402 Protocol with Mollie</h1>
+            </div>
+            <div class="card-body">
+                <p class="lead">This is a demonstration of how to implement the L402 protocol using Mollie as a payment provider.</p>
+                <p>The L402 protocol leverages HTTP's 402 Payment Required status code to enable machine-friendly payments on the internet. This demo shows how to integrate Mollie's payment processing with the L402 protocol for API monetization.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <h3>How It Works</h3>
+            </div>
+            <div class="card-body">
+                <ol>
+                    <li>Get a user token via the <code>/signup</code> endpoint</li>
+                    <li>Make a request to the protected API (<code>/api/protected</code>)</li>
+                    <li>If you have no credits, you'll receive a 402 Payment Required response with payment options</li>
+                    <li>Choose a payment option and follow the L402 protocol flow</li>
+                    <li>After payment, the API becomes accessible using your token</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <h3>Quick Start</h3>
+            </div>
+            <div class="card-body">
+                <p>Try the API using curl:</p>
+                
+                <h5>1. Create an account:</h5>
+                <pre class="bg-light p-2">
+curl {{ app.request.schemeAndHttpHost }}/signup</pre>
+                
+                <h5>2. Use the returned token to make an API request:</h5>
+                <pre class="bg-light p-2">
+curl -H "Authorization: Bearer your_token" {{ app.request.schemeAndHttpHost }}/api/protected</pre>
+                
+                <p>You'll get a 402 response since you have no credits. Follow the payment process to gain access.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3>API Documentation</h3>
+            </div>
+            <div class="card-body">
+                <h5>Authentication</h5>
+                <p>All API requests require authentication using the Bearer token scheme:</p>
+                <pre class="bg-light p-2">
+Authorization: Bearer your_token</pre>
+                
+                <h5>Endpoints</h5>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Endpoint</th>
+                            <th>Method</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>/signup</code></td>
+                            <td>GET</td>
+                            <td>Create a new user account and get an authentication token</td>
+                        </tr>
+                        <tr>
+                            <td><code>/info</code></td>
+                            <td>GET</td>
+                            <td>Get information about your user account including credit balance</td>
+                        </tr>
+                        <tr>
+                            <td><code>/api/protected</code></td>
+                            <td>GET</td>
+                            <td>Access the protected API resource (requires credits)</td>
+                        </tr>
+                        <tr>
+                            <td><code>/payment/request</code></td>
+                            <td>POST</td>
+                            <td>Part of the L402 flow to process payment selection</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

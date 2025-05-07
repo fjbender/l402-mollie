@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Terms of Service - L402 Mollie Demo{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h1 class="mb-0">Terms of Service</h1>
+            </div>
+            <div class="card-body">
+                <h2 class="mb-4">L402 Mollie Demo Service Terms</h2>
+                
+                <h3>1. Service Description</h3>
+                <p>This is a demonstration service implementing the L402 protocol with Mollie payments. The service provides access to API resources in exchange for payment using Mollie as a payment processor.</p>
+                
+                <h3>2. API Credits</h3>
+                <p>When you purchase API credits through this service, you are buying the right to make a specific number of API calls. Credits do not expire but are non-refundable once used.</p>
+                
+                <h3>3. Payment Processing</h3>
+                <p>All payments are processed through Mollie. The L402 protocol serves as an automated way for clients to discover payment requirements and fulfill them without human intervention.</p>
+                
+                <h3>4. Data Collection and Privacy</h3>
+                <p>This service collects minimal data necessary for processing payments and providing the service. We do not share any data with third parties except as required to process payments through Mollie.</p>
+                
+                <h3>5. Authentication</h3>
+                <p>You are responsible for keeping your authentication token secure. Any API requests made with your token will be charged against your credit balance.</p>
+                
+                <h3>6. Service Limitations</h3>
+                <p>As this is a demonstration service:</p>
+                <ul>
+                    <li>We do not guarantee availability or uptime</li>
+                    <li>The API functionality is intentionally limited</li>
+                    <li>No warranty is provided</li>
+                </ul>
+                
+                <h3>7. Changes to Terms</h3>
+                <p>We reserve the right to modify these terms at any time. Continued use of the service constitutes acceptance of the current terms.</p>
+                
+                <h3>8. Contact Information</h3>
+                <p>For questions about these terms or the service, please contact us at <a href="mailto:example@example.com">example@example.com</a>.</p>
+                
+                <div class="mt-4">
+                    <a href="/" class="btn btn-primary">Back to Homepage</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

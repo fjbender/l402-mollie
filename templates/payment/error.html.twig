@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Payment Error - L402 Mollie Demo{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h3 class="mb-0">Payment Error</h3>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-danger">
+                    <h4 class="alert-heading">An error occurred</h4>
+                    <p>{{ error|default('There was a problem processing your payment request.') }}</p>
+                </div>
+                
+                <div class="mt-4">
+                    <a href="/" class="btn btn-primary">Back to Homepage</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

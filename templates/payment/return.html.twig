@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Payment Complete - L402 Mollie Demo{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">Payment Status</h3>
+            </div>
+            <div class="card-body">
+                {% if status == 'paid' %}
+                    <div class="alert alert-success">
+                        <h4 class="alert-heading">Payment Successful!</h4>
+                        <p>Your payment has been processed successfully. {{ payment.credits }} credits have been added to your account.</p>
+                    </div>
+                {% elseif status == 'pending' %}
+                    <div class="alert alert-warning">
+                        <h4 class="alert-heading">Payment Pending</h4>
+                        <p>Your payment is still being processed. Please check back later.</p>
+                    </div>
+                {% else %}
+                    <div class="alert alert-danger">
+                        <h4 class="alert-heading">Payment Failed</h4>
+                        <p>There was a problem processing your payment. Please try again.</p>
+                    </div>
+                {% endif %}
+
+                <div class="mt-4">
+                    <h5>Payment Details:</h5>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Payment ID</th>
+                            <td>{{ payment.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Amount</th>
+                            <td>{{ payment.amount }} {{ payment.currency }}</td>
+                        </tr>
+                        <tr>
+                            <th>Credits</th>
+                            <td>{{ payment.credits }}</td>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <td>{{ payment.status }}</td>
+                        </tr>
+                        <tr>
+                            <th>Created</th>
+                            <td>{{ payment.createdAt|date('Y-m-d H:i:s') }}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="mt-4">
+                    <p><strong>Your API Access Token:</strong><br>
+                    <code>{{ payment.user.token }}</code></p>
+                    
+                    <p>Use this token in your API requests with the Authorization header:<br>
+                    <code>Authorization: Bearer {{ payment.user.token }}</code></p>
+                </div>
+
+                <div class="mt-4">
+                    <h5>Try the API:</h5>
+                    <pre class="bg-light p-3">
+curl -H "Authorization: Bearer {{ payment.user.token }}" https://{{ app.request.httpHost }}/api/protected</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
